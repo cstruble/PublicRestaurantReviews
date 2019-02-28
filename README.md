@@ -1,3 +1,21 @@
+Created a sample data set using EF via a SeedData static class upon startup.  Used Repository pattern with IdentityContext with the assumption that if this were to plug into another system, the database connection, Repositories and Entities (found in the Models package) can be swapped out to real data connections and entities.  I used SQL Server Express locally while seeding the data and subsequently testing.
+
+Used Identity with Roles with the idea that perhaps we'd like to have Admin role'd users update the underlying data such as Restaurants and where those restaurants are located.  Didn't delve too deeply into security. Only used the Authorize attribute to protect methods but didn't get too complicated with it.  If security implementation is a major requirement please let me know and I'll be happy to implement.  Also, added API functionality for adding new restaurants and adding new locations for existing restaurants, but didn't expand locations for similar functionality.  Stubbed out the methods for locations instead.  Can expand on this if desired as well.
+
+Created a SPA UI in Angular to test with and included the code for that here as well.  With the UI running on a separate port, had to deal with CORS.  Again, didn't go too deeply into the CORS setup, just made it work.  If desired, I can expand upon this.
+
+I've also included a few unit tests on the Controllers.  I chose Moq as the mocking package.  Can implement using a different package if desired.
+
+Some basic assumptions that were made:
+1.  There can only be one restaurant at a location, but can be multiple locations for a restaurant.  If we expand the data set for lcoations to include street address, this would be more realistic.  For now, the location definition is only City and State.
+2.  Given multiple potential locations for a restaurant, there can be a separate reviews for each individual location.
+3.  A User may only review a restaurant at a location once.  The user cannot submit multiple reviews for the same location of a restaurant.  Instead, that user can edit the existing review.
+4.  A User may only edit reviews which they've submitted, not reviews written by other users.
+5.  A User may only delete reviews which they've submitted
+6.  Restaurants and Locations cannot be deleted (can implement if desired, but not currently included)
+
+Thank you for the opportunity.  This was a fun project!
+
 RestaurantReviews
 =================
 
