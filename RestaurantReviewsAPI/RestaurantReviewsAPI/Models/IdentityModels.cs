@@ -29,5 +29,9 @@ namespace RestaurantReviewsAPI.Models
         {
             return new ApplicationDbContext();
         }
+        public System.Data.Entity.DbSet<RestaurantReviewsAPI.Models.Restaurant> Restaurants { get; set; }
+
+        public System.Data.Entity.DbSet<RestaurantReviewsAPI.Models.Location> Locations { get; set; }
+        public System.Data.Entity.DbSet<RestaurantReviewsAPI.Models.Review> Reviews { get; set; }
     }
 }

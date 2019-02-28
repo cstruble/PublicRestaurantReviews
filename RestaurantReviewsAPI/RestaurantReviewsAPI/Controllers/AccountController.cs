@@ -6,6 +6,8 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.Http.Description;
 using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,14 +16,16 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using RestaurantReviewsAPI.Models;
+using RestaurantReviewsAPI.Models.DTOs;
 using RestaurantReviewsAPI.Providers;
 using RestaurantReviewsAPI.Results;
 
 namespace RestaurantReviewsAPI.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [Authorize]
     [RoutePrefix("api/Account")]
-    public class AccountController : ApiController
+    public class AccountController : BaseApiController
     {
         private const string LocalLoginProvider = "Local";
         private ApplicationUserManager _userManager;
@@ -383,6 +387,22 @@ namespace RestaurantReviewsAPI.Controllers
 
             base.Dispose(disposing);
         }
+
+        // GET api/Account/Users
+        [AllowAnonymous]
+        [Route("Users")]
+        [HttpGet]
+        [ResponseType(typeof(IList<UserDTO>))]
+        public IHttpActionResult Users()
+        {
+            IList<UserDTO> users = new List<UserDTO>();
+            foreach (ApplicationUser user in UserManager.Users)
+            {
+                users.Add(new UserDTO(user));
+            }
+            return Ok(users);
+        }
+
 
         #region Helpers
 
