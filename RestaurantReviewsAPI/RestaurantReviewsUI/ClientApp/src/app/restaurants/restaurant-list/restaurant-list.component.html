@@ -1,0 +1,24 @@
+<h1>Manage Restaurants</h1>
+
+<p>Add or edit restaurants.</p>
+
+<p *ngIf="!restaurants"><em>Loading...</em></p>
+
+<a [routerLink]='["/restaurant", -1]'>Add New Restaurant or Location</a>
+<table class='table' *ngIf="restaurants">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th>State</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let restaurant of restaurants">
+      <td>{{ restaurant.Name }}</td>
+      <td>{{ restaurant.Location.City }}</td>
+      <td>{{ restaurant.Location.State }}</td>
+      <td><a [routerLink]='["/restaurant", restaurant.Id]'>Edit</a></td>
+    </tr>
+  </tbody>
+</table>

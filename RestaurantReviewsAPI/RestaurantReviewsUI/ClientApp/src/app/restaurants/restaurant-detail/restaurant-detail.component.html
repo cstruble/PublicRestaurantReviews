@@ -1,0 +1,30 @@
+<div *ngIf="!isUserLoggedIn || !isUserAdmin"><em>Please <a [routerLink]='["/account/login"]'>login with an Admin account</a> to view and edit Restaurants</em></div>
+<div *ngIf="restaurant && isUserLoggedIn && isUserAdmin">
+  <h2>{{restaurant.Name | uppercase}} Details</h2>
+  <form #restaurantForm="ngForm" (ngSubmit)="onFormSubmit(restaurantForm)">
+    <fieldset>
+      <div>
+        <label>
+          Name: <input type="text" [(ngModel)]="restaurant.Name" placeholder="restaurant name" name="Name" #Name="ngModel" required />
+        </label>
+      </div>
+      <div>
+        <label for="city">Location</label>
+        <select *ngIf="locations" [(ngModel)]="selectedLocation" (ngModelChange)="onChangeLocation($event)" name="Location" required>
+          <option [ngValue]="location" *ngFor="let location of locations">{{location.City}}, {{location.State}}</option>
+        </select>
+      </div>
+      <!--- Buttons Block --->
+      <div class="form-group">
+        <button type="submit"
+                class="btn btn-success"
+                [disabled]="!restaurantForm.form.valid">
+          Submit
+        </button>
+      </div>
+    </fieldset>
+  </form>
+  <div *ngIf="dataSaved">
+    {{restaurant.Name}} has been updated. <a [routerLink]='["/restaurants"]'>Return to Restaurants</a>
+  </div>
+</div>

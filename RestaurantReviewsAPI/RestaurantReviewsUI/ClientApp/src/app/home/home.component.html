@@ -1,0 +1,13 @@
+<h1>Restaurant Reviews</h1>
+<p>Welcome to the restaurant reviews website.</p>
+<ul>
+  <li><a href='https://get.asp.net/'>ASP.NET Core</a> and <a href='https://msdn.microsoft.com/en-us/library/67ef8sbd.aspx'>C#</a> for cross-platform server-side code</li>
+  <li><a href='https://angular.io/'>Angular</a> and <a href='http://www.typescriptlang.org/'>TypeScript</a> for client-side code</li>
+  <li><a href='http://getbootstrap.com/'>Bootstrap</a> for layout and styling</li>
+</ul>
+<p>From here you can:</p>
+<ul>
+  <li *ngIf="!isUserLoggedIn"><strong><a [routerLink]='["/account/login"]'>Login</a></strong> to write and edit <em>Reviews</em>.</li>
+  <li><strong><a [routerLink]='["/reviews"]'>Reviews</a></strong>. Write and edit restaurant <em>Reviews</em>.</li>
+  <li *ngIf="isUserAdmin"><strong><a [routerLink]='["/restaurants"]'>Manage Restaurants</a></strong>. Add and Edit existing restaurants.</li>
+</ul>

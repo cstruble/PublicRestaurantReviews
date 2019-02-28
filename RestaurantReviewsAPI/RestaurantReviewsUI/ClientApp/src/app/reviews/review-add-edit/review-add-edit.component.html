@@ -1,0 +1,35 @@
+<p *ngIf="!review || !review.Restaurant"><em>Loading...</em></p>
+<div *ngIf="review && review.Restaurant">
+  <h2>Add or Update a Review for {{review.Restaurant.Name | uppercase}}</h2>
+  <form #reviewForm="ngForm" (ngSubmit)="onFormSubmit(reviewForm)">
+    <fieldset>
+      <div>
+        <label for="stars">Number of Stars</label>
+        <select id="stars" [(ngModel)]="review.Stars" name="Stars" required>
+          <option *ngFor="let s of stars" [value]="s">{{s}}</option>
+        </select>
+      </div>
+      <div>
+        <label>
+          Your Review: <input type="text" [(ngModel)]="review.Description" placeholder="review write-up" name="Description" #Description="ngModel" required />
+        </label>
+      </div>
+      <div *ngIf="Description.invalid && (Description.dirty || Description.touched)" class="alert alert-danger">
+        <div *ngIf="Description.errors?.required">
+          Please provide a Review Write-up
+        </div>
+      </div>
+      <!--- Buttons Block --->
+      <div class="form-group">
+        <button type="submit"
+                class="btn btn-success"
+                [disabled]="!reviewForm.form.valid">
+          Submit
+        </button>
+      </div>
+    </fieldset>
+  </form>
+  <div *ngIf="dataSaved">
+    Thank you for submitting your review. <a [routerLink]='["/reviews"]'>Return to Restaurant Reviews</a>
+  </div>
+</div>

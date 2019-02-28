@@ -1,0 +1,40 @@
+<h1>Reviews</h1>
+
+<p>Add, edit or delete a review.</p>
+
+<p *ngIf="!locations"><em>Loading...</em></p>
+
+<label>Location</label>
+<select *ngIf="locations" [(ngModel)]="selectedLocation" (ngModelChange)="onChangeLocation($event)">
+  <option [ngValue]="location" *ngFor="let location of locations">{{location.City}}, {{location.State}}</option>
+</select>
+<label>Restaurant</label>
+<select *ngIf="restaurants && restaurants.length > 0" [(ngModel)]="selectedRestaurant" (ngModelChange)="onChangeRestaurant($event)">
+  <option [ngValue]="restaurant" *ngFor="let restaurant of restaurants">{{restaurant.Name}}</option>
+</select>
+<br />
+<label>Or by User Email</label>
+<select *ngIf="users && users.length > 0" [(ngModel)]="selectedUser" (ngModelChange)="onChangeUser($event)">
+  <option [ngValue]="user" *ngFor="let user of users">{{user.Email}}</option>
+</select>
+
+<a *ngIf="selectedRestaurant && selectedLocation" [routerLink]='["/review-add-edit", selectedRestaurant.Id]'>Add Review</a>
+<table class='table' *ngIf="reviews && reviews.length > 0">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Stars</th>
+      <th>Review Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let review of reviews">
+      <td>{{ review.User.UserName }}</td>
+      <td>{{ review.Stars }}</td>
+      <td>{{ review.Description }}</td>
+      <td><a *ngIf="review.User.UserName == username" [routerLink]='["/review-add-edit", review.Id, selectedRestaurant != null ? selectedRestaurant.Id : review.Restaurant.Id]'>Edit</a></td>
+      <td><button *ngIf="review.User.UserName == username" (click)="delete(review)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+
